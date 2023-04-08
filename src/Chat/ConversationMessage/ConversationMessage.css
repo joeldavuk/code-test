@@ -1,0 +1,7 @@
+.message {
+    width: 100%;
+}
+
+.message:hover {
+    cursor: pointer;
+}
