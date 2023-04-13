@@ -48,23 +48,22 @@ export const useMessage = () => {
   };
   const editMessage = (e: FormEvent<HTMLFormElement>) => {
     const data = getFormData(e);
-    const updatedConversations = [...conversations];
+    const newConversations = [...conversations];
+    const updatedConversations = newConversations.find(
+      (item) => item.id === activeConversation
+    );
 
-    for (const item in updatedConversations) {
-      if (updatedConversations[item].id === activeConversation) {
-        for (const message in updatedConversations[item].messages) {
-          if (
-            updatedConversations[item].messages[message].id === activeMessage
-          ) {
-            updatedConversations[item].messages[message].text = data.reply;
-          }
+    if (updatedConversations) {
+      for (const message in updatedConversations.messages) {
+        if (updatedConversations.messages[message].id === activeMessage) {
+          updatedConversations.messages[message].text = data.reply;
         }
       }
-    }
 
-    setActiveMessage("");
-    setConversations(updatedConversations);
-    e.currentTarget.reset();
+      setActiveMessage("");
+      setConversations(newConversations);
+      e.currentTarget.reset();
+    }
   };
   return {
     addMessage,

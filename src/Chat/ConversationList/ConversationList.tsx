@@ -6,17 +6,16 @@ import cx from "classnames";
 interface ConversationListProps {
   list: Conversation[];
   onClick: (id: string) => void;
+  activeThread: Conversation | undefined;
 }
 
 export const ConversationList: FC<ConversationListProps> = ({
   list,
   onClick,
+  activeThread,
 }) => {
-  const [activeLinkId, setActiveLink] = useState<string | undefined>();
-
   const handleClick = (e: MouseEvent, item: Conversation) => {
     e.preventDefault();
-    setActiveLink(item.id);
     onClick(item.id);
   };
 
@@ -25,7 +24,7 @@ export const ConversationList: FC<ConversationListProps> = ({
       {list.map((item) => (
         <li
           key={item.id}
-          className={cx(item.id === activeLinkId ? "active" : "")}
+          className={cx(item.id === activeThread?.id ? "active" : "")}
         >
           <a
             href={`#${item.id}`}

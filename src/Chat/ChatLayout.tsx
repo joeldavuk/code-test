@@ -61,6 +61,7 @@ export const ChatLayout: FC = () => {
         {conversations && (
           <ConversationList
             list={conversations}
+            activeThread={activeThread}
             onClick={setActiveConversation}
           />
         )}
